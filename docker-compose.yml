@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: AppSecurity
+    environment:
+      POSTGRES_DB: AppSecurity
+      POSTGRES_USER: ${DOCKER_USER}
+      POSTGRES_PASSWORD: ${DOCKER_PASSWORD}
+    ports:
+      - "5431:5432"
+    restart: always
