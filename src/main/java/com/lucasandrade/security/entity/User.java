@@ -24,6 +24,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
@@ -48,11 +49,11 @@ public class User implements UserDetails {
     @JoinTable(name = "user_permission",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "permission_id")})
-    private List<Permissions> permissions;
+    private List<Permission> permissions;
 
-    private List<String> getRoles(){
+    private List<String> getRoles() {
         List<String> roles = new ArrayList<>();
-        for(Permissions permission : permissions){
+        for (Permission permission : permissions) {
             roles.add(permission.getDescription());
         }
         return roles;
@@ -60,7 +61,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.permissions;
+        return this.permissions != null ? this.permissions : List.of();
     }
 
     @Override

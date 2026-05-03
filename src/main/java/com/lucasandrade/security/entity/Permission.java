@@ -1,9 +1,6 @@
 package com.lucasandrade.security.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,16 +10,18 @@ import org.springframework.security.core.GrantedAuthority;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "permissions")
-public class Permissions implements GrantedAuthority {
+@Entity
+@Table(name = "permissions")
+public class Permission implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
     private String description;
 
     @Override
-    public @Nullable String getAuthority() {
+    public String getAuthority() {
         return this.description;
     }
 }
