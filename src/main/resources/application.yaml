@@ -13,3 +13,7 @@ spring:
 
   flyway:
     enabled: true
+
+  jwt:
+    secretKey: ${JWT_SECRET_KEY}
+    expireLength: ${EXPIRE_LENGTH}
